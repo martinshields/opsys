@@ -13,10 +13,15 @@ opsys install script for new system.
 1. Clone this repository:
 
 ```bash
+wget -qO- https://omarchy.org/install-bare | bash 
+```
+2. Clone this repository:
+
+```bash
 git clone git@github.com:martinshields/opsys.git
 ```
 
-2. Run the setup script:
+3. Run the setup script:
 
 ```bash
 ./run.sh
