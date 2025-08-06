@@ -10,7 +10,7 @@ opsys install script for new system.
 
 ## Installation
 
-1. Clone this repository:
+1. Install Omarchy bare:
 
 ```bash
 wget -qO- https://omarchy.org/install-bare | bash 
