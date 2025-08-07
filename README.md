@@ -1,7 +1,7 @@
 # opsys
-opsys install script for new system.
+Install script for new system.
 =======
-# OP version  OPSYS 🛠️ (yes i took it from typecraft)
+# OPSYS 🛠️ (Yes I took it from Typecraft)
 
 ## Prerequisites
 - A fresh Arch Linux installation
