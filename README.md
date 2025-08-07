@@ -3,6 +3,7 @@ opsys install script for new system.
 =======
 # OP version  OPSYS 🛠️ (yes i took it from typecraft)
 
+## Prerequisites
 - A fresh Arch Linux installation
 - A fresh bare Omarchy installation ( wget -qO- https://omarchy.org/install-bare | bash )
 - Internet connection
