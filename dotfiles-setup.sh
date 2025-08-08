@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ORIGINAL_DIR=$(~)
-REPO_URL="git@github.com:martinshields/opsys.git"
+REPO_URL="https://github.com/martinshields/dotfiles.git"
 REPO_NAME="dotfiles"
 
 
