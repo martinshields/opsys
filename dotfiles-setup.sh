@@ -27,6 +27,12 @@ if ! is_yadm_installed; then
     exit 1
 fi
 
+# Check if git is installed (needed for cloning plugins)
+if ! command -v git >/dev/null 2>&1; then
+    log "Error: git is not installed. Please install git first."
+    exit 1
+fi
+
 # Check network connectivity
 ping -c 1 github.com >/dev/null 2>&1 || {
     log "Error: No internet connection. Please check your network."
@@ -51,6 +57,20 @@ fi
 log "Installing oh-my-zsh..."
 RUNZSH=no CHSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended || {
     log "Error: Failed to install oh-my-zsh."
+    exit 1
+}
+
+# Install zsh-autosuggestions plugin
+log "Installing zsh-autosuggestions..."
+git clone https://github.com/zsh-users/zsh-autosuggestions "${OH_MY_ZSH_DIR}/custom/plugins/zsh-autosuggestions" || {
+    log "Error: Failed to install zsh-autosuggestions."
+    exit 1
+}
+
+# Install zsh-completions plugin
+log "Installing zsh-completions..."
+git clone https://github.com/zsh-users/zsh-completions "${OH_MY_ZSH_DIR}/custom/plugins/zsh-completions" || {
+    log "Error: Failed to install zsh-completions."
     exit 1
 }
 
@@ -83,6 +103,13 @@ else
     }
 fi
 
+# Checkout dotfiles to apply them
+log "Checking out dotfiles with yadm..."
+yadm checkout --force || {
+    log "Error: Failed to checkout dotfiles with yadm."
+    exit 1
+}
+
 # Ensure oh-my-zsh custom directory exists
 mkdir -p "$OH_MY_ZSH_DIR/custom/" || {
     log "Error: Failed to create $OH_MY_ZSH_DIR/custom/."
@@ -102,5 +129,27 @@ for file in aliasmartin.zsh functions.zsh; do
     fi
 done
 
+# Change default shell to Zsh (on Arch, path is /usr/bin/zsh)
+log "Changing default shell to Zsh..."
+chsh -s /usr/bin/zsh || {
+    log "Error: Failed to change shell to Zsh. You may need to run 'chsh -s /usr/bin/zsh' manually."
+    exit 1
+}
+
 log "Setup completed successfully."
+
+# 10-second countdown before reboot
+log "Rebooting in 10 seconds... Press Ctrl+C to cancel."
+for ((i=10; i>0; i--)); do
+    echo "Rebooting in $i seconds..."
+    sleep 1
+done
+
+# Reboot the system
+log "Rebooting now..."
+sudo reboot || {
+    log "Error: Failed to reboot. You may need to run 'sudo reboot' manually."
+    exit 1
+}
+
 exit 0
