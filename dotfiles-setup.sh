@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ORIGINAL_DIR=$(~)
+# ORIGINAL_DIR=$(~)
 REPO_URL="https://github.com/martinshields/dotfiles.git"
 REPO_NAME="dotfiles"
 
