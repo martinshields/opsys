@@ -23,7 +23,7 @@ cd ~
 # installing my yadm dotfiles.  
   echo "Install dotfiles"
   yadm clone "$REPO_URL"
-
+  yadm bootstrap
 # move aliasmartin.zsh and function.zsh
   echo "copying over aliasmartin.zsh and functions.zsh"
  cp ~/aliasmartin.zsh ~/.oh-my-zsh/custom/aliasmartin.zsh
