@@ -5,8 +5,16 @@ OH_MY_ZSH_DIR=~/.oh-my-zsh
 NVIM_CONFIG_DIR=~/.config/nvim
 LOG_FILE=~/dotfiles_setup.log
 
+# Download vifm color 
 wget -P ~/.config/vifm/colors https://raw.githubusercontent.com/vifm/vifm-colors/master/palenight.vifm
 
+# Create the adata directory in the home folder
+mkdir -p ~/adata
+
+# Create the zsh_history.zsh file in the home folder
+touch ~/.zsh_history
+
+echo "Folder ~/adata and file ~/zsh_history.zsh have been created."
 # Log function
 log() {
     echo "$(date): $1" | tee -a "$LOG_FILE"
