@@ -5,6 +5,8 @@ OH_MY_ZSH_DIR=~/.oh-my-zsh
 NVIM_CONFIG_DIR=~/.config/nvim
 LOG_FILE=~/dotfiles_setup.log
 
+wget -P ~/.config/vifm/colors https://raw.githubusercontent.com/vifm/vifm-colors/master/palenight.vifm
+
 # Log function
 log() {
     echo "$(date): $1" | tee -a "$LOG_FILE"
