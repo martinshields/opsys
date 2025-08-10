@@ -12,6 +12,15 @@ if ! is_yadm_installed; then
   exit 1
 fi
 
+# Remove existing oh-my-zsh directory if it exists
+if [[ -d ~/.oh-my-zsh ]]; then
+  echo "Removing existing oh-my-zsh directory..."
+  rm -rf ~/.oh-my-zsh || {
+    echo "Error: Failed to remove ~/.oh-my-zsh."
+    exit 1
+  }
+fi
+
 # Install oh-my-zsh
 echo "Installing oh-my-zsh..."
 RUNZSH=no CHSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended || {
