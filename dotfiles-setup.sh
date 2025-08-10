@@ -38,13 +38,13 @@ rm -rf ~/.config/nvim || {
 # Clone dotfiles with yadm, forcing overwrite of existing files
 echo "Cloning dotfiles (overwriting existing files)..."
 if yadm status >/dev/null 2>&1; then
-  echo "Warning: yadm repository already initialized."
-  yadm clone "$REPO_URL" || {
+  echo "Warning: yadm repository already initialized. Forcing overwrite."
+  yadm clone -f "$REPO_URL" || {
     echo "Error: Failed to clone dotfiles repository."
     exit 1
   }
 else
-  yadm clone "$REPO_URL" || {
+  yadm clone -f "$REPO_URL" || {
     echo "Error: Failed to clone dotfiles repository."
     exit 1
   }
@@ -63,5 +63,5 @@ for file in aliasmartin.zsh functions.zsh; do
   fi
 done
 
-echo "Setup completed successfully. Reboot your system."
+echo "Setup completed successfully."
 exit 0
