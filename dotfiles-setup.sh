@@ -98,46 +98,46 @@ if [[ -d "$NVIM_CONFIG_DIR" ]]; then
     }
 fi
 
-# Clone dotfiles with yadm
-log "Cloning dotfiles (overwriting existing files)..."
-if yadm status >/dev/null 2>&1; then
-    log "Warning: yadm repository already initialized. Forcing overwrite."
-    yadm clone -f "$REPO_URL" || {
-        log "Error: Failed to clone dotfiles from $REPO_URL."
-        exit 1
-    }
-else
-    yadm clone -f "$REPO_URL" || {
-        log "Error: Failed to clone dotfiles from $REPO_URL."
-        exit 1
-    }
-fi
-
-# Checkout dotfiles to apply them
-log "Checking out dotfiles with yadm..."
-yadm checkout --force || {
-    log "Error: Failed to checkout dotfiles with yadm."
-    exit 1
-}
-
-# Ensure oh-my-zsh custom directory exists
-mkdir -p "$OH_MY_ZSH_DIR/custom/" || {
-    log "Error: Failed to create $OH_MY_ZSH_DIR/custom/."
-    exit 1
-}
-
-# Copy custom Zsh files
-log "Copying aliasmartin.zsh and functions.zsh..."
-for file in aliasmartin.zsh functions.zsh; do
-    if [[ -f ~/"$file" ]]; then
-        cp ~/"$file" "$OH_MY_ZSH_DIR/custom/" || {
-            log "Error: Failed to copy ~/$file to $OH_MY_ZSH_DIR/custom/."
-            exit 1
-        }
-    else
-        log "Warning: ~/$file not found. Skipping."
-    fi
-done
+# # Clone dotfiles with yadm
+# log "Cloning dotfiles (overwriting existing files)..."
+# if yadm status >/dev/null 2>&1; then
+#     log "Warning: yadm repository already initialized. Forcing overwrite."
+#     yadm clone -f "$REPO_URL" || {
+#         log "Error: Failed to clone dotfiles from $REPO_URL."
+#         exit 1
+#     }
+# else
+#     yadm clone -f "$REPO_URL" || {
+#         log "Error: Failed to clone dotfiles from $REPO_URL."
+#         exit 1
+#     }
+# fi
+#
+# # Checkout dotfiles to apply them
+# log "Checking out dotfiles with yadm..."
+# yadm checkout --force || {
+#     log "Error: Failed to checkout dotfiles with yadm."
+#     exit 1
+# }
+#
+# # Ensure oh-my-zsh custom directory exists
+# mkdir -p "$OH_MY_ZSH_DIR/custom/" || {
+#     log "Error: Failed to create $OH_MY_ZSH_DIR/custom/."
+#     exit 1
+# }
+#
+# # Copy custom Zsh files
+# log "Copying aliasmartin.zsh and functions.zsh..."
+# for file in aliasmartin.zsh functions.zsh; do
+#     if [[ -f ~/"$file" ]]; then
+#         cp ~/"$file" "$OH_MY_ZSH_DIR/custom/" || {
+#             log "Error: Failed to copy ~/$file to $OH_MY_ZSH_DIR/custom/."
+#             exit 1
+#         }
+#     else
+#         log "Warning: ~/$file not found. Skipping."
+#     fi
+# done
 
 # Change default shell to Zsh (on Arch, path is /usr/bin/zsh)
 log "Changing default shell to Zsh..."
