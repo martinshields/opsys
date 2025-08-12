@@ -117,18 +117,18 @@ else
     fi
   done
 
-# Install oh-my-zsh
-
-echo "Installing oh-my-zsh"
-RUNZSH=no CHSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
-
-# Set ZSH_CUSTOM if it's not already set
-ZSH_CUSTOM="${ZSH_CUSTOM:-${ZSH:-$HOME/.oh-my-zsh}/custom}"
-
-# Install zsh plugins
-echo "Installing zsh plugins"
-git clone https://github.com/zsh-users/zsh-autosuggestions "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
-git clone https://github.com/zsh-users/zsh-completions "$ZSH_CUSTOM/plugins/zsh-completions"
+# # Install oh-my-zsh
+#
+# echo "Installing oh-my-zsh"
+# RUNZSH=no CHSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
+#
+# # Set ZSH_CUSTOM if it's not already set
+# ZSH_CUSTOM="${ZSH_CUSTOM:-${ZSH:-$HOME/.oh-my-zsh}/custom}"
+#
+# # Install zsh plugins
+# echo "Installing zsh plugins"
+# git clone https://github.com/zsh-users/zsh-autosuggestions "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
+# git clone https://github.com/zsh-users/zsh-completions "$ZSH_CUSTOM/plugins/zsh-completions"
 
  # Install yadm dotfiles
   echo "Installing dotfiles-setup"
