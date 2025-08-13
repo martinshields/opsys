@@ -51,8 +51,8 @@ fi
 
 # Update the system first
 echo "Updating system..."
-# sudo pacman -Syu 
-sudo pacman -Syu --noconfirm --ignore uwsm
+sudo pacman -Syu 
+# sudo pacman -Syu --noconfirm --ignore uwsm
 
 # Install yay AUR helper if not present
 if ! command -v yay &> /dev/null; then
