@@ -19,7 +19,7 @@ wget -qO- https://omarchy.org/install-bare | bash
 2. Clone this repository:
 
 ```bash
-git clone git@github.com:martinshields/opsys.git
+git clone https://github.com/martinshields/dotfiles.git
 ```
 
 3. Run the setup script:
