@@ -11,7 +11,7 @@ Install script for new system.
 
 ## Installation
 
-1. Install Omarchy bare:
+1. Install Omarchy bare. Make sure you use btrfs:
 
 ```bash
 wget -qO- https://omarchy.org/install-bare | bash 
@@ -27,11 +27,13 @@ git clone https://github.com/martinshields/dotfiles.git
 ```bash
 ./run.sh
 ```
+4. Check out Typecrafts video to setup timeshift and btrfs backups.
+   https://www.youtube.com/watch?v=V1wxgWU0j0E&t=190s
 
-3. Follow the prompts to select the packages you want to install.
+5. Follow the prompts to select the packages you want to install.
 
-4. The script will handle the rest of the setup process.
+6. The script will handle the rest of the setup process.
 
-5. After the setup is complete, you can reboot your system to see the changes.
+7. After the setup is complete, you can reboot your system to see the changes.
 
 
