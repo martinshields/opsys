@@ -10,6 +10,7 @@ wget -P ~/.config/vifm/colors https://raw.githubusercontent.com/vifm/vifm-colors
 
 # Create the adata directory in the home folder
 mkdir -p ~/adata
+mkdir -p ~/adata/temp
 
 # Create the zsh_history.zsh file in the home folder
 touch ~/.zsh_history
