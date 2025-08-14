@@ -6,6 +6,7 @@ Install script for new system.
 ## Prerequisites
 - A fresh Arch Linux installation
 - A fresh bare Omarchy installation ( wget -qO- https://omarchy.org/install-bare | bash )
+- Git and wget installed.
 - Internet connection
 - sudo privileges
 
@@ -19,7 +20,8 @@ wget -qO- https://omarchy.org/install-bare | bash
 2. Clone this repository:
 
 ```bash
-git clone https://github.com/martinshields/dotfiles.git
+
+git clone https://github.com/martinshields/opsys.git
 ```
 
 3. Run the setup script:
