@@ -3,3 +3,5 @@
 udisksctl mount -b /dev/sdb1
 
 sudo -E timeshift-launcher
+
+ss -tulpm | grep deluge
