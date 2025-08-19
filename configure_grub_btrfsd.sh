@@ -69,6 +69,11 @@ else
     grub-mkconfig -o /boot/grub/grub.cfg
 fi
 
+# #for updating grub config
+# sudo /etc/grub.d/41_snapshots-btrfs
+# grub-mkconfig -o /boot/grub/grub.cfg
+#
+
 echo "Configuration complete. Reboot to verify that Timeshift snapshots appear in the GRUB menu."
 
 # 10-second countdown before reboot
