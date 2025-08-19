@@ -70,3 +70,20 @@ else
 fi
 
 echo "Configuration complete. Reboot to verify that Timeshift snapshots appear in the GRUB menu."
+
+# 10-second countdown before reboot
+log "Rebooting in 10 seconds... Press Ctrl+C to cancel."
+for ((i=10; i>0; i--)); do
+    echo "Rebooting in $i seconds..."
+    sleep 1
+done
+
+# Reboot the system
+log "Rebooting now..."
+sudo reboot || {
+    log "Error: Failed to reboot. You may need to run 'sudo reboot' manually."
+    exit 1
+}
+
+exit 0
+
