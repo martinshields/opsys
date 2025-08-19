@@ -149,6 +149,13 @@ chsh -s /usr/bin/zsh || {
 
 log "Setup completed successfully."
 
+ # configuration for configure_grub_btrfsd
+  echo "configure configure_grub_btrfsd.sh"
+  . configure_grub_btrfsd.sh
+  
+fi
+
+
 # 10-second countdown before reboot
 log "Rebooting in 10 seconds... Press Ctrl+C to cancel."
 for ((i=10; i>0; i--)); do
