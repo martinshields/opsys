@@ -9,3 +9,5 @@ ss -tulpm | grep deluge
 git remote set-url origin git@github.com:martinshields/opsys.git
 
 yadm remote set-url origin git@github.com:martinshields/dotfiles.git
+
+sudo sed -i 's|/usr/bin/brave-browser-stable|/usr/bin/brave-browser-stable --password-store=basic|g' /usr/share/applications/brave-browser.desktop
