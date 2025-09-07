@@ -4,18 +4,17 @@ Install script for new system.
 # OPSYS 🛠️ (Yes I took it from Typecraft)
 
 ## Prerequisites
-- A fresh Arch Linux installation
-- A fresh bare Omarchy installation ( wget -qO- https://omarchy.org/install-bare | bash )
+- Install Omarchy by downloading the iso. 
 - Git and wget installed.
 - Internet connection
 - sudo privileges
 
 ## Installation
 
-1. Install Omarchy bare. Make sure you use btrfs:
+1. Install Omarchy by downloading the iso. No more bare install. So i added run-omarchy-cleaner.sh you can run later. Make sure you use btrfs:
 
 ```bash
-wget -qO- https://omarchy.org/install-bare | bash 
+https://learn.omacom.io/2/the-omarchy-manual/50/getting-started 
 ```
 2. Clone this repository:
 
