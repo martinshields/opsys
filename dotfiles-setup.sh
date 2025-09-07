@@ -9,7 +9,6 @@ LOG_FILE=~/dotfiles_setup.log
 wget -P ~/.config/vifm/colors https://raw.githubusercontent.com/vifm/vifm-colors/master/palenight.vifm
 
 # Create the adata directory in the home folder
-mkdir -p ~/adata
 mkdir -p ~/adata/temp
 
 # Create the zsh_history.zsh file in the home folder
