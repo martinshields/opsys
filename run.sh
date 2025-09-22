@@ -1,5 +1,5 @@
 #!/bin/bash
-#Make sure you install Omarchy bare mode frist "wget -qO- https://omarchy.org/install-bare | bash"
+#Make sure you install Omarchy ISO
 #and your ~/.ssh folder
  
 
