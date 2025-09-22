@@ -32,3 +32,9 @@ git clone https://github.com/martinshields/opsys.git
 
 5. Check out Typecrafts video to setup timeshift and btrfs backups.
    [Typecrafts btrfs setup ](https://www.youtube.com/watch?v=V1wxgWU0j0E&t=190s)
+
+6. Vbox setting for monitor if needed.
+
+```bash
+monitor=VGA-1,1920x1080@60.0,1920x1080,1.2
+```
