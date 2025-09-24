@@ -1,7 +1,7 @@
 # opsys
 Install script for new system.
 =======
-# OPSYS 🛠️ (Yes I took it from Typecraft)
+# OPSYS 🛠️ 
 
 ## Prerequisites
 - Install Omarchy by downloading the iso. 
@@ -11,7 +11,7 @@ Install script for new system.
 
 ## Installation
 
-1. Install Omarchy by downloading the iso. No more bare install. So i added run-omarchy-cleaner.sh you can run later. Make sure you use btrfs:
+1. Install Omarchy by downloading the iso. No more bare install. So i added run-omarchy-cleaner.sh you can run later.
 
 ```bash
 https://learn.omacom.io/2/the-omarchy-manual/50/getting-started 
@@ -30,8 +30,7 @@ git clone https://github.com/martinshields/opsys.git
 ```
 4. After the setup is complete, you can reboot your system to see the changes.
 
-5. Check out Typecrafts video to setup timeshift and btrfs backups.
-   [Typecrafts btrfs setup ](https://www.youtube.com/watch?v=V1wxgWU0j0E&t=190s)
+5. Added scripts: run-omarchy-cleaner.sh (for removing bloat software). install_deluge_arch.sh (for setting up docker,lazydocker and deluge.)
 
 6. Vbox setting for monitor if needed.
 
