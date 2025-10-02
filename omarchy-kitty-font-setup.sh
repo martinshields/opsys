@@ -11,10 +11,11 @@ read -p ""
 
 # Step 1: Install packages
 echo "Step 1: Installing kitty and otf-codenewroman-nerd..."
-read -p "Run 'sudo pacman -Syu kitty otf-codenewroman-nerd && fc-cache -fv'? (y/n): " -n 1 -r
+read -p "Run 'omarchy-install-terminal kitty && pacman -Syu otf-codenewroman-nerd && fc-cache -fv'? (y/n): " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-    sudo pacman -Syu --noconfirm kitty otf-codenewroman-nerd
+    omarchy-install-terminal kitty
+    sudo pacman -Syu --noconfirm otf-codenewroman-nerd
     fc-cache -fv
     echo "✓ Installed!"
 else
