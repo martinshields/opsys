@@ -11,11 +11,11 @@ read -p ""
 
 # Step 1: Install packages
 echo "Step 1: Installing kitty and otf-codenewroman-nerd..."
-read -p "Run 'omarchy-install-terminal kitty && pacman -Syu otf-codenewroman-nerd && fc-cache -fv'? (y/n): " -n 1 -r
+read -p "Run 'sudo pacman -Syu kitty otf-codenewroman-nerd && fc-cache -fv'? (y/n): " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-    omarchy-install-terminal kitty
-    sudo pacman -Syu --noconfirm otf-codenewroman-nerd
+    # omarchy-install-terminal kitty
+    sudo pacman -Syu --noconfirm kitty otf-codenewroman-nerd
     fc-cache -fv
     echo "✓ Installed!"
 else
@@ -43,22 +43,22 @@ allow_remote_control yes
 EOF
 echo "✓ Kitty config created/updated."
 
-# # Step 3: Set as default terminal
-# echo "Step 3: Adding Kitty as default terminal alias..."
-# if ! grep -q "alias term=kitty" "$HOME/.zshrc" 2>/dev/null; then
-#     echo 'alias term=kitty' >> "$HOME/.zshrc"
-#     echo 'export TERMINAL=kitty' >> "$HOME/.zshrc"
-#     echo "✓ Added to ~/.zshrc. Source it with 'source ~/.zshrc'."
-# else
-#     echo "Already configured."
-# fi
-#
-# read -p "Edit Hyprland.conf for global keybind? (Manual: change 'alacritty' to 'kitty' in bind= line) (y/n): " -n 1 -r
-# echo
-# if [[ $REPLY =~ ^[Yy]$ ]]; then
-#     echo "Open ~/.config/hypr/hyprland.conf and update: bind = SUPER, Return, exec, kitty"
-#     echo "Then run 'hyprctl reload'."
-# fi
+# Step 3: Set as default terminal
+echo "Step 3: Adding Kitty as default terminal alias..."
+if ! grep -q "alias term=kitty" "$HOME/.zshrc" 2>/dev/null; then
+    echo 'alias term=kitty' >> "$HOME/.zshrc"
+    echo 'export TERMINAL=kitty' >> "$HOME/.zshrc"
+    echo "✓ Added to ~/.zshrc. Source it with 'source ~/.zshrc'."
+else
+    echo "Already configured."
+fi
+
+read -p "Edit Hyprland.conf for global keybind? (Manual: change 'alacritty' to 'kitty' in bind= line) (y/n): " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    echo "Open ~/.config/hypr/hyprland.conf and update: bind = SUPER, Return, exec, kitty"
+    echo "Then run 'hyprctl reload'."
+fi
 
 # Step 4: Set font with omarchy-font-set
 echo "Step 4: Setting system font..."
@@ -70,7 +70,21 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
 else
     echo "Skipped. Run manually."
 fi
-
+#
+# echo " Install the Kitty terminal and make it default using the command: omarchy-install-terminal kitty"
+# read -p "Would you like to proceed with running this command? (y/n): " answer
+#
+# if [[ "$answer" =~ ^[Yy]$ ]]; then
+#     echo "Running the command..."
+#     omarchy-install-terminal kitty
+#     if [ $? -eq 0 ]; then
+#         echo "Command executed successfully!"
+#     else
+#         echo "Error: The command failed to execute."
+#     fi
+# else
+#     echo "Operation cancelled by user."
+# fi
 # Test
 echo ""
 echo "=== Setup Complete! ==="
