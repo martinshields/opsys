@@ -40,6 +40,7 @@ selection_background #0066cc
 url_color        #0087bd
 
 allow_remote_control yes
+confirm_os_window_close 0   
 EOF
 echo "✓ Kitty config created/updated."
 
@@ -53,13 +54,13 @@ else
     echo "Already configured."
 fi
 
-read -p "Edit Hyprland.conf for global keybind? (Manual: change 'alacritty' to 'kitty' in bind= line) (y/n): " -n 1 -r
-echo
-if [[ $REPLY =~ ^[Yy]$ ]]; then
-    echo "Open ~/.config/hypr/hyprland.conf and update: bind = SUPER, Return, exec, kitty"
-    echo "Then run 'hyprctl reload'."
-fi
-
+# read -p "Edit Hyprland.conf for global keybind? (Manual: change 'alacritty' to 'kitty' in bind= line) (y/n): " -n 1 -r
+# echo
+# if [[ $REPLY =~ ^[Yy]$ ]]; then
+#     echo "Open ~/.config/hypr/hyprland.conf and update: bind = SUPER, Return, exec, kitty"
+#     echo "Then run 'hyprctl reload'."
+# fi
+#
 # Step 4: Set font with omarchy-font-set
 echo "Step 4: Setting system font..."
 read -p "Run 'omarchy-font-set \"CodeNewRoman Nerd Font\"'? (y/n): " -n 1 -r
