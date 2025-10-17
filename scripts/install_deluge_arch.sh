@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Script to install Docker, lazydocker, and docker-compose on Arch Linux,
-# then run Deluge in a Docker container using docker-compose
+# then run Deluge in a Docker container using docker-compose.NO VPN will be installed.
 # Downloads will be saved to ~/adata on the host
 
 # Function to check if a command exists
