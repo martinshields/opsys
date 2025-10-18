@@ -1,5 +1,5 @@
 
-alias up='sudo pacman -Syu'
+alias up='sudo apt update && sudo apt upgrade -y'
 #test for me 
 alias h='cd ~'
 alias vim="nvim"
