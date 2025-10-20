@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Script to set up Samba on Raspberry Pi and configure a shared folder
+# Script to set up Samba on Raspberry Pi and configure a shared folder with specific settings
 
 # Check if script is run as root
 if [ "$EUID" -ne 0 ]; then
@@ -35,41 +35,23 @@ if [ ! -d "$SHARE_PATH" ]; then
   fi
 fi
 
+# Prompt for the system user (for context, but not used for ownership)
+echo "Enter the system user for reference (e.g., pi):"
+read -r SYSTEM_USER
+
+# Validate that the user exists
+if ! id "$SYSTEM_USER" &> /dev/null; then
+  echo "Error: User '$SYSTEM_USER' does not exist. Please create the user or choose an existing one."
+  exit 1
+fi
+
 # Prompt for share name
 echo "Enter a name for the Samba share (e.g., PiShare):"
 read -r SHARE_NAME
 
-# Prompt for permissions
-echo "Choose permissions for the share:"
-echo "1) Read-only for everyone"
-echo "2) Read-write for everyone"
-echo "3) Read-write for authenticated users only"
-read -r PERM_CHOICE
-
-# Set Samba configuration based on choice
-case $PERM_CHOICE in
-  1)
-    PERM="read only = yes"
-    GUEST="guest ok = yes"
-    ;;
-  2)
-    PERM="read only = no"
-    GUEST="guest ok = yes"
-    ;;
-  3)
-    PERM="read only = no"
-    GUEST="guest ok = no"
-    ;;
-  *)
-    echo "Invalid choice. Defaulting to read-only for everyone."
-    PERM="read only = yes"
-    GUEST="guest ok = yes"
-    ;;
-esac
-
-# Set folder permissions (ensure pi user and group can access)
-chown -R pi:pi "$SHARE_PATH"
-chmod -R 775 "$SHARE_PATH"
+# Set folder permissions (align with Samba settings: nobody:nogroup, 777)
+chown -R nobody:nogroup "$SHARE_PATH"
+chmod -R 777 "$SHARE_PATH"
 
 # Backup existing Samba configuration
 if [ -f /etc/samba/smb.conf ]; then
@@ -77,30 +59,20 @@ if [ -f /etc/samba/smb.conf ]; then
   echo "Backed up existing Samba configuration to /etc/samba/smb.conf.bak"
 fi
 
-# Add share configuration to smb.conf
+# Add share configuration to smb.conf with specified settings
 cat >> /etc/samba/smb.conf << EOF
 
 [$SHARE_NAME]
    path = $SHARE_PATH
-   $PERM
-   $GUEST
-   browsable = yes
-   create mask = 0775
-   directory mask = 0775
+   browseable = yes
+   writable = yes
+   guest ok = yes
+   read only = no
+   create mask = 0777
+   directory mask = 0777
+   force user = nobody
+   force group = nogroup
 EOF
-
-# If authenticated users are selected, prompt for Samba user setup
-if [ "$PERM_CHOICE" = "3" ]; then
-  echo "Setting up Samba user. Enter the username for Samba access (e.g., pi):"
-  read -r SAMBA_USER
-  echo "Enter the password for the Samba user:"
-  smbpasswd -a "$SAMBA_USER"
-  if [ $? -ne 0 ]; then
-    echo "Failed to set Samba user password. Please set it manually using 'smbpasswd -a $SAMBA_USER'."
-  else
-    echo "Samba user $SAMBA_USER configured."
-  fi
-fi
 
 # Test Samba configuration
 echo "Testing Samba configuration..."
@@ -121,11 +93,7 @@ echo "Samba setup complete!"
 echo "Shared folder: $SHARE_PATH"
 echo "Share name: $SHARE_NAME"
 echo "Access it from another device using: \\\\$IP\\$SHARE_NAME"
-if [ "$PERM_CHOICE" = "3" ]; then
-  echo "Use the Samba username and password to access the share."
-else
-  echo "The share is accessible to guests."
-fi
+echo "The share is accessible to guests (no authentication required)."
 
 # Optional: Open firewall ports if ufw is enabled
 if command -v ufw &> /dev/null && ufw status | grep -q "Status: active"; then
