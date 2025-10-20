@@ -2,7 +2,7 @@
 
 # Script to install Docker, lazydocker, and docker-compose on Arch Linux or Raspberry Pi OS,
 # then run Deluge with PIA VPN in a Docker container using docker-compose
-# Downloads will be saved to ~/adata on the host
+# Downloads will be saved to ~/usb_drive/adata on the host
 
 # TODO: Edit these with your PIA credentials
 VPN_USER="your_pia_username"
@@ -26,12 +26,12 @@ else
 fi
 echo "Detected OS: $OS, Architecture: $ARCH"
 
-# Create ~/adata if it doesn't exist
-if [ ! -d "$HOME/adata" ]; then
-    mkdir -p "$HOME/adata"
-    chmod -R 775 "$HOME/adata"
-    chown -R "$USER:$USER" "$HOME/adata"
-    echo "Created directory: $HOME/adata"
+# Create ~/usb_drive/adata if it doesn't exist
+if [ ! -d "$HOME/usb_drive/adata" ]; then
+    mkdir -p "$HOME/usb_drive/adata"
+    chmod -R 775 "$HOME/usb_drive/adata"
+    chown -R "$USER:$USER" "$HOME/usb_drive/adata"
+    echo "Created directory: $HOME/usb_drive/adata"
 fi
 
 # Create ~/delugevpn/config for VPN and Deluge config
@@ -162,7 +162,7 @@ services:
       - 8118:8118  # Privoxy proxy
     volumes:
       - $CONFIG_DIR:/config
-      - $HOME/adata:/data
+      - $HOME/usb_drive/adata:/adata
     restart: unless-stopped
 EOL
 echo "docker-compose.yaml created at $COMPOSE_FILE"
@@ -179,7 +179,7 @@ docker logs delugevpn 2>&1 | grep -E "(VPN| pia |openvpn|port forward)" | tail -
 
 echo "DelugeVPN is running. Access the web UI at http://localhost:8112"
 echo "WARNING: The default Deluge password is 'deluge'. Change it in the web UI immediately for security."
-echo "All traffic is routed through PIA VPN. Downloads will be saved to $HOME/adata"
+echo "All traffic is routed through PIA VPN. Downloads will be saved to $HOME/usb_drive/adata"
 echo "Proxy access (if needed): HTTP/SOCKS at localhost:8118 (user: admin, pass: socks)"
 echo "You can manage the container with lazydocker or $COMPOSE_CMD commands."
 echo "To stop: $COMPOSE_CMD -f $COMPOSE_FILE down"
