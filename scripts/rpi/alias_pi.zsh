@@ -1,6 +1,8 @@
+# aliases for th RPI. Use the commamd to copy to the custom dir. 
+# cp alias_pi.zsh ~/.oh-my-zsh/custom/alias_pi.zsh 
+#
 
 alias up='sudo apt update && sudo apt upgrade -y'
-#test for me 
 alias h='cd ~'
 alias vim="nvim"
 alias vi="nvim"
