@@ -1,0 +1,13 @@
+# Just some commands I keep forgetting
+
+udisksctl mount -b /dev/sdb1
+
+git remote set-url origin git@github.com:martinshields/opsys.git
+
+yadm remote set-url origin git@github.com:martinshields/dotfiles.git
+
+omarchy-font-list
+
+omarchy-font-set CodeNewRoman Nerd Font
+
+omarchy-install-terminal kitty
