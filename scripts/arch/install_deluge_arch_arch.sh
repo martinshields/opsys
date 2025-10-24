@@ -1,4 +1,51 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# Cross-distro compatibility prolog (auto-inserted)
+# Works on Arch Linux (pacman) and Debian-based (apt) like Raspberry Pi OS.
+set -euo pipefail
+IFS=$'\n\t'
+
+detect_pkg_mgr() {
+    if command -v pacman >/dev/null 2>&1; then
+        PKG_MGR="pacman"
+    elif command -v apt-get >/dev/null 2>&1 || command -v apt >/dev/null 2>&1; then
+        PKG_MGR="apt"
+    elif command -v apk >/dev/null 2>&1; then
+        PKG_MGR="apk"
+    else
+        PKG_MGR="unknown"
+    fi
+}
+
+pkg_install() {
+    detect_pkg_mgr
+    case "$PKG_MGR" in
+        pacman) pkg_install "$@" ;;
+        apt) pkg_install && -y "$@" ;;
+        apk) sudo apk add "$@" ;;
+        *) echo "No known package manager found; please install: $*" >&2; return 1 ;;
+    esac
+}
+
+# wrapper for systemctl where not available
+maybe_systemctl() {
+    if command -v systemctl >/dev/null 2>&1; then
+        systemctl "$@"
+    else
+        echo "systemctl not available on this system. $*" >&2
+        return 1
+    fi
+}
+
+# wrapper for architecture
+ARCH=$(uname -m)
+# normalize common architecture names
+case "$ARCH" in
+    x86_64) ARCH="x86_64" ;;
+    aarch64|arm64) ARCH="arm64" ;;
+    armv7*|armv6*) ARCH="armv7" ;;
+esac
+
+# End of prolog
 
 # Script to install Docker, lazydocker, and docker-compose on Arch Linux,
 # then run Deluge in a Docker container using docker-compose.NO VPN will be installed.
@@ -18,8 +65,8 @@ fi
 # Check if Docker is installed
 if ! command_exists docker; then
     echo "Docker is not installed. Installing Docker..."
-    sudo pacman -Syu --noconfirm
-    sudo pacman -S --noconfirm docker
+    pkg_install 
+    pkg_install docker
     sudo systemctl start docker
     sudo systemctl enable docker
     sudo usermod -aG docker $USER
@@ -31,7 +78,7 @@ fi
 # Check if lazydocker is installed
 if ! command_exists lazydocker; then
     echo "lazydocker is not installed. Installing lazydocker..."
-    sudo pacman -S --noconfirm lazydocker
+    pkg_install lazydocker
     echo "lazydocker installed."
 else
     echo "lazydocker is already installed."
@@ -40,7 +87,7 @@ fi
 # Check if docker-compose is installed
 if ! command_exists docker-compose; then
     echo "docker-compose is not installed. Installing docker-compose..."
-    sudo pacman -S --noconfirm docker-compose
+    pkg_install docker-compose
     echo "docker-compose installed."
 else
     echo "docker-compose is already installed."

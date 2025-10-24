@@ -1,4 +1,51 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# Cross-distro compatibility prolog (auto-inserted)
+# Works on Arch Linux (pacman) and Debian-based (apt) like Raspberry Pi OS.
+set -euo pipefail
+IFS=$'\n\t'
+
+detect_pkg_mgr() {
+    if command -v pacman >/dev/null 2>&1; then
+        PKG_MGR="pacman"
+    elif command -v apt-get >/dev/null 2>&1 || command -v apt >/dev/null 2>&1; then
+        PKG_MGR="apt"
+    elif command -v apk >/dev/null 2>&1; then
+        PKG_MGR="apk"
+    else
+        PKG_MGR="unknown"
+    fi
+}
+
+pkg_install() {
+    detect_pkg_mgr
+    case "$PKG_MGR" in
+        pacman) pkg_install "$@" ;;
+        apt) pkg_install && -y "$@" ;;
+        apk) sudo apk add "$@" ;;
+        *) echo "No known package manager found; please install: $*" >&2; return 1 ;;
+    esac
+}
+
+# wrapper for systemctl where not available
+maybe_systemctl() {
+    if command -v systemctl >/dev/null 2>&1; then
+        systemctl "$@"
+    else
+        echo "systemctl not available on this system. $*" >&2
+        return 1
+    fi
+}
+
+# wrapper for architecture
+ARCH=$(uname -m)
+# normalize common architecture names
+case "$ARCH" in
+    x86_64) ARCH="x86_64" ;;
+    aarch64|arm64) ARCH="arm64" ;;
+    armv7*|armv6*) ARCH="armv7" ;;
+esac
+
+# End of prolog
 
 # Script to install Docker, lazydocker, and docker-compose on Arch Linux or Raspberry Pi OS,
 # then run Deluge with PIA VPN in a Docker container using docker-compose
@@ -45,11 +92,11 @@ fi
 if ! command_exists docker; then
     echo "Docker is not installed. Installing Docker..."
     if [ "$OS" = "arch" ]; then
-        sudo pacman -Syu --noconfirm || { echo "Failed to update system"; exit 1; }
-        sudo pacman -S --noconfirm docker || { echo "Failed to install Docker"; exit 1; }
+        pkg_install || { echo "Failed to system"; exit 1; }
+        pkg_install docker || { echo "Failed to Docker"; exit 1; }
     elif [ "$OS" = "debian" ]; then
         sudo apt-get update || { echo "Failed to update system"; exit 1; }
-        sudo apt-get install -y docker.io || { echo "Failed to install Docker"; exit 1; }
+        pkg_install -y docker || { echo "Failed to Docker"; exit 1; }
     fi
     sudo systemctl start docker || { echo "Failed to start Docker service"; exit 1; }
     sudo systemctl enable docker
@@ -71,9 +118,9 @@ fi
 if ! command_exists lazydocker; then
     echo "lazydocker is not installed. Installing lazydocker..."
     if [ "$OS" = "arch" ]; then
-        sudo pacman -S --noconfirm lazydocker || { echo "Failed to install lazydocker"; exit 1; }
+        pkg_install lazydocker || { echo "Failed to lazydocker"; exit 1; }
     elif [ "$OS" = "debian" ]; then
-        sudo apt-get install -y curl || { echo "Failed to install curl"; exit 1; }
+        pkg_install -y curl || { echo "Failed to curl"; exit 1; }
         curl -L https://github.com/jesseduffield/lazydocker/releases/latest/download/lazydocker_"$(curl -s https://api.github.com/repos/jesseduffield/lazydocker/releases/latest | grep tag_name | cut -d '"' -f 4 | cut -c 2-)"_Linux_"$([ "$ARCH" = "aarch64" ] && echo "arm64" || echo "arm")".tar.gz | tar xz -C /tmp
         sudo mv /tmp/lazydocker /usr/local/bin/ || { echo "Failed to install lazydocker"; exit YY1; }
     fi
@@ -95,11 +142,11 @@ else
             COMPOSE_CMD="docker-compose"
         else
             echo "No AUR helper (yay/paru) found. Install docker-compose manually or use 'docker compose' (Docker CLI)."
-            echo "To install yay: pacman -S --noconfirm yay"
+            echo "To install yay: pkg_install yay"
             exit 1
         fi
     elif [ "$OS" = "debian" ]; then
-        sudo apt-get install -y docker-compose || { echo "Failed to install docker-compose"; exit 1; }
+        pkg_install -y docker-compose || { echo "Failed to docker-compose"; exit 1; }
         COMPOSE_CMD="docker-compose"
     fi
     echo "docker-compose installed."

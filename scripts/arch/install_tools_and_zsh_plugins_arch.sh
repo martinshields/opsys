@@ -1,4 +1,51 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# Cross-distro compatibility prolog (auto-inserted)
+# Works on Arch Linux (pacman) and Debian-based (apt) like Raspberry Pi OS.
+set -euo pipefail
+IFS=$'\n\t'
+
+detect_pkg_mgr() {
+    if command -v pacman >/dev/null 2>&1; then
+        PKG_MGR="pacman"
+    elif command -v apt-get >/dev/null 2>&1 || command -v apt >/dev/null 2>&1; then
+        PKG_MGR="apt"
+    elif command -v apk >/dev/null 2>&1; then
+        PKG_MGR="apk"
+    else
+        PKG_MGR="unknown"
+    fi
+}
+
+pkg_install() {
+    detect_pkg_mgr
+    case "$PKG_MGR" in
+        pacman) pkg_install "$@" ;;
+        apt) pkg_install && -y "$@" ;;
+        apk) sudo apk add "$@" ;;
+        *) echo "No known package manager found; please install: $*" >&2; return 1 ;;
+    esac
+}
+
+# wrapper for systemctl where not available
+maybe_systemctl() {
+    if command -v systemctl >/dev/null 2>&1; then
+        systemctl "$@"
+    else
+        echo "systemctl not available on this system. $*" >&2
+        return 1
+    fi
+}
+
+# wrapper for architecture
+ARCH=$(uname -m)
+# normalize common architecture names
+case "$ARCH" in
+    x86_64) ARCH="x86_64" ;;
+    aarch64|arm64) ARCH="arm64" ;;
+    armv7*|armv6*) ARCH="armv7" ;;
+esac
+
+# End of prolog
 
 # Script to install specified tools and zsh plugins via APT on Raspberry Pi 4 (Raspberry Pi OS)
 # Tools: htop, lazygit, neofetch, nerdfetch, zip, unzip, wget, curl, lsd, speedtest-cli, vim, nano, bat, vifm, zsh, neovim, git, ohmyzsh
@@ -11,7 +58,7 @@ echo "Updating package list..."
 sudo apt update
 
 echo "Installing available APT packages..."
-sudo apt install -y \
+pkg_install -y \
     htop \
     neofetch \
     zip \
