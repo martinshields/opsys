@@ -49,6 +49,7 @@ scripts/
 | `setup_samba_*` | Installs and configures Samba shares. | Package names differ. |
 | `setup_usb_and_folder_*` | Mounts and configures USB storage. | Universal. |
 | `staticIP-rpi_*` | Configures static IP. | Universal. |
+| `docker_install_tools_*` | instals Docker,Docker compose,lazydocker | Universal. |
 
 ---
 
