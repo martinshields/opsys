@@ -50,6 +50,7 @@ scripts/
 | `setup_usb_and_folder_*` | Mounts and configures USB storage. | Universal. |
 | `staticIP-rpi_*` | Configures static IP. | Universal. |
 | `docker_install_tools_*` | installs Docker,Docker compose,lazydocker | Universal. |
+| `alias_pi.zsh` | aliases for the pi | rpi only. |
 
 ---
 
