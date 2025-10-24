@@ -43,8 +43,8 @@ scripts/
 | `install_deluge_*` | Installs Deluge torrent client with Docker support. | RPi uses `docker.io`; Arch uses `docker`. |
 | `install_pihole_*` | Installs Pi-hole network ad blocker. | Works natively on RPi. |
 | `install_tools_and_zsh_plugins_*` | Installs Zsh, Git, and common CLI tools. | Compatible on both systems. |
-| `omarchy-kitty-font-setup_*` | Installs Kitty terminal and Nerd Fonts. | Font names differ by distro. |
-| `run-omarchy-cleaner_*` | Cleans up temporary files. | Universal. |
+| `omarchy-kitty-font-setup_*` | Installs Kitty terminal and Nerd Fonts. | For Omarchy only. |
+| `run-omarchy-cleaner_*` | Cleans up temporary files. | For Omarchy only. |
 | `setup_deluge_vpn_*` | Configures Deluge + VPN in Docker. | RPi version skips lazydocker. |
 | `setup_samba_*` | Installs and configures Samba shares. | Package names differ. |
 | `setup_usb_and_folder_*` | Mounts and configures USB storage. | Universal. |
