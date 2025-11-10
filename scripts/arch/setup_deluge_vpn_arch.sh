@@ -122,7 +122,7 @@ if ! command_exists lazydocker; then
     elif [ "$OS" = "debian" ]; then
         pkg_install -y curl || { echo "Failed to curl"; exit 1; }
         curl -L https://github.com/jesseduffield/lazydocker/releases/latest/download/lazydocker_"$(curl -s https://api.github.com/repos/jesseduffield/lazydocker/releases/latest | grep tag_name | cut -d '"' -f 4 | cut -c 2-)"_Linux_"$([ "$ARCH" = "aarch64" ] && echo "arm64" || echo "arm")".tar.gz | tar xz -C /tmp
-        sudo mv /tmp/lazydocker /usr/local/bin/ || { echo "Failed to install lazydocker"; exit YY1; }
+        sudo mv /tmp/lazydocker /usr/local/bin/ || { echo "Failed to install lazydocker"; exit 1; }
     fi
     echo "lazydocker installed."
 else

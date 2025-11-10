@@ -47,7 +47,7 @@ esac
 
 # End of prolog
 
-# Script to install Docker, , and docker.io-compose on Arch Linux or Raspberry Pi OS,
+# Script to install Docker, lazydocker, and docker.io-compose on Arch Linux or Raspberry Pi OS,
 # then run Deluge with PIA VPN in a Docker container using docker.io-compose
 # Downloads will be saved to ~/usb_drive/adata on the host
 
@@ -115,18 +115,18 @@ else
 fi
 
 # Install  based on OS
-if ! command_exists ; then
-    echo " is not installed. Installing ..."
+if ! command_exists lazydocker; then
+    echo "lazydocker is not installed. Installing lazydocker..."
     if [ "$OS" = "arch" ]; then
-        pkg_install  || { echo "Failed to "; exit 1; }
+        pkg_install lazydocker || { echo "Failed to install lazydocker"; exit 1; }
     elif [ "$OS" = "debian" ]; then
         pkg_install -y curl || { echo "Failed to curl"; exit 1; }
-        curl -L https://github.com/jesseduffield//releases/latest/download/lazydocker_"$(curl -s https://api.github.com/repos/jesseduffield//releases/latest | grep tag_name | cut -d '"' -f 4 | cut -c 2-)"_Linux_"$([ "$ARCH" = "aarch64" ] && echo "arm64" || echo "arm")".tar.gz | tar xz -C /tmp
-        sudo mv /tmp/ /usr/local/bin/ || { echo "Failed to install "; exit YY1; }
+        curl -L https://github.com/jesseduffield/lazydocker/releases/latest/download/lazydocker_"$(curl -s https://api.github.com/repos/jesseduffield/lazydocker/releases/latest | grep tag_name | cut -d '"' -f 4 | cut -c 2-)"_Linux_"$([ "$ARCH" = "aarch64" ] && echo "arm64" || echo "arm")".tar.gz | tar xz -C /tmp
+        sudo mv /tmp/lazydocker /usr/local/bin/ || { echo "Failed to install lazydocker"; exit 1; }
     fi
-    echo " installed."
+    echo "lazydocker installed."
 else
-    echo " is already installed."
+    echo "lazydocker is already installed."
 fi
 
 # Install docker.io-compose based on OS
@@ -228,6 +228,6 @@ echo "DelugeVPN is running. Access the web UI at http://localhost:8112"
 echo "WARNING: The default Deluge password is 'deluge'. Change it in the web UI immediately for security."
 echo "All traffic is routed through PIA VPN. Downloads will be saved to $HOME/usb_drive/adata"
 echo "Proxy access (if needed): HTTP/SOCKS at localhost:8118 (user: admin, pass: socks)"
-echo "You can manage the container with  or $COMPOSE_CMD commands."
+echo "You can manage the container with lazydocker or $COMPOSE_CMD commands."
 echo "To stop: $COMPOSE_CMD -f $COMPOSE_FILE down"
 echo "Verify VPN: Run 'docker.io logs delugevpn' and look for successful connection/port forwarding messages."
