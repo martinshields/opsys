@@ -105,7 +105,7 @@ services:
       - VPN_CLIENT=openvpn
       - STRICT_PORT_FORWARD=yes
       - ENABLE_PRIVOXY=yes
-      - LAN_NETWORK=192.168.1.0/24   # <<< CHANGE IF YOUR LAN IS DIFFERENT
+      - LAN_NETWORK=192.168.1.0/24   # <<< CHANGE IF YOUR LAN IS DIFFERENT THEN 192.168.1.0/24 You can run getip.sh to find out.
       - NAME_SERVERS=1.1.1.1,8.8.4.4
       - UMASK=000
     ports:
