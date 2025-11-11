@@ -11,3 +11,7 @@ omarchy-font-list
 omarchy-font-set CodeNewRoman Nerd Font
 
 omarchy-install-terminal kitty
+
+docker logs -f delugevpn #realtime logs 
+
+docker logs --tail 50 delugevpn
