@@ -1,77 +1,40 @@
-#!/usr/bin/env bash
-# Cross-distro compatibility prolog (auto-inserted)
-# Works on Arch Linux (pacman) and Debian-based (apt) like Raspberry Pi OS.
-set -euo pipefail
-IFS=$'\n\t'
+#!/bin/bash
 
-detect_pkg_mgr() {
-    if command -v pacman >/dev/null 2>&1; then
-        PKG_MGR="pacman"
-    elif command -v apt-get >/dev/null 2>&1 || command -v apt >/dev/null 2>&1; then
-        PKG_MGR="apt"
-    elif command -v apk >/dev/null 2>&1; then
-        PKG_MGR="apk"
-    else
-        PKG_MGR="unknown"
-    fi
-}
+# Pi-hole Installation Script for Raspberry Pi 4
+# Run this on a fresh Raspberry Pi OS (Lite recommended) installation.
+# Ensure your RPi is connected to the internet and updated first.
 
-pkg_install() {
-    detect_pkg_mgr
-    case "$PKG_MGR" in
-        pacman) pkg_install "$@" ;;
-        apt) pkg_install && -y "$@" ;;
-        apk) sudo apk add "$@" ;;
-        *) echo "No known package manager found; please install: $*" >&2; return 1 ;;
-    esac
-}
-
-# wrapper for systemctl where not available
-maybe_systemctl() {
-    if command -v systemctl >/dev/null 2>&1; then
-        systemctl "$@"
-    else
-        echo "systemctl not available on this system. $*" >&2
-        return 1
-    fi
-}
-
-# wrapper for architecture
-ARCH=$(uname -m)
-# normalize common architecture names
-case "$ARCH" in
-    x86_64) ARCH="x86_64" ;;
-    aarch64|arm64) ARCH="arm64" ;;
-    armv7*|armv6*) ARCH="armv7" ;;
-esac
-
-# End of prolog
-
-# Exit on any error
-set -e
-
-# Colors for output
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-NC='\033[0m' # No Color
-
-echo -e "${GREEN}Starting Pi-hole installation on Raspberry Pi${NC}"
-
-# Step 1: Update the system
-echo -e "${GREEN}Updating package lists and upgrading system...${NC}"
+# Step 1: Update system
+echo "Updating system packages..."
 sudo apt update && sudo apt upgrade -y
 
-# Step 2: Install required dependencies
-echo -e "${GREEN}Installing required dependencies...${NC}"
-pkg_install -y curl
+# Step 2: Install curl if not present (required for installer)
+echo "Installing curl..."
+sudo apt install curl -y
 
-# Step 3: Download and run the official Pi-hole installer
-echo -e "${GREEN}Downloading and running Pi-hole installer...${NC}"
+# Step 3: Download and run the official Pi-hole automated installer
+echo "Starting Pi-hole installation..."
 curl -sSL https://install.pi-hole.net | bash
 
-# Step 4: Post-installation instructions
-echo -e "${GREEN}Pi-hole installation completed!${NC}"
-echo -e "Access the Pi-hole admin interface at: http://<your-pi-ip>/admin"
-echo -e "Default login: Username: pihole, Password: (set during installation)"
-echo -e "To change the Pi-hole admin password, run: ${GREEN}pihole -a -p${NC}"
-echo -e "Ensure your router or devices are configured to use the Pi-hole DNS server at <your-pi-ip>"
+# Step 4: After installation completes (follow prompts in the installer):
+# - Choose upstream DNS (e.g., Cloudflare, Google)
+# - Select blocklists
+# - Install web admin interface and web server (lighttpd)
+# - Enable logging if desired
+
+# Step 5: Secure your Pi-hole (recommended post-install)
+echo "Installation complete! Now secure your setup:"
+echo "1. Change the admin password:"
+echo "   sudo pihole -a -p"
+echo ""
+echo "2. Access the web dashboard at: http://pi.hole/admin or http://<your-pi-ip>/admin"
+echo "   Find your Pi's IP with: hostname -I"
+echo ""
+echo "3. Set a static IP on your router for this Pi (recommended)"
+echo ""
+echo "4. Optional: Update Pi-hole later with: pihole -up"
+
+# End of script
+
+
+
