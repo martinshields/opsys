@@ -1,38 +1,46 @@
-# opsys
-Install script for new system.
-=======
-# OPSYS 🛠️ 
+# OPSYS 🛠️
 
-## Prerequisites
-- Install Omarchy by downloading the iso. 
-- Git and wget installed.
+Install script for Arch Linux (Omarchy) system setup.
+
+## 📋 Prerequisites
+
+- Omarchy installed (download ISO from https://learn.omacom.io/2/the-omarchy-manual/50/getting-started)
+- Git and wget installed
 - Internet connection
 - sudo privileges
 
-## Installation
+## 🚀 Installation
 
-1. Install Omarchy by downloading the iso. No more bare install. So i added run-omarchy-cleaner.sh you can run later.
-
-```bash
-https://learn.omacom.io/2/the-omarchy-manual/50/getting-started 
-```
-2. Clone this repository:
+1. Clone this repository:
 
 ```bash
-
 git clone https://github.com/martinshields/opsys.git
 ```
 
-3. Run the setup script:
+2. Run the setup script:
 
 ```bash
 ./run.sh
 ```
-4. After the setup is complete, you can reboot your system to see the changes.
 
-5. Added scripts: run-omarchy-cleaner.sh (for removing bloat software). install_deluge_arch.sh (for setting up docker,lazydocker and deluge.)
+3. Reboot your system to apply changes.
 
-6. Vbox setting for monitor if needed.
+## 📂 Additional Scripts
+
+Scripts are located in `scripts/arch/`:
+
+- `run-omarchy-cleaner_arch.sh` - Remove bloat software
+- `install_docker_tools_arch.sh` - Install Docker and Lazydocker
+- `install_deluge_arch_arch.sh` - Set up Deluge torrent client
+- `setup_deluge_vpn_arch.sh` - Set up Deluge with VPN
+- `install_pihole_arch.sh` - Install Pi-hole
+- `setup_samba_arch.sh` - Configure Samba file sharing
+- `install_tools_and_zsh_plugins_arch.sh` - Install tools and ZSH plugins
+- `omarchy-kitty-font-setup_arch.sh` - Configure Kitty terminal fonts
+
+## 🖥️ VirtualBox Monitor Setting
+
+If needed:
 
 ```bash
 monitor=VGA-1,1920x1080@60.0,1920x1080,1.2

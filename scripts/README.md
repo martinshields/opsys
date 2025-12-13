@@ -1,63 +1,50 @@
-# Opsys Scripts — Arch & Raspberry Pi Versions
+# Opsys Scripts — Arch Linux 🛠️
 
-These scripts have been split into two sets for convenience and portability.
+Scripts for Arch Linux (Omarchy) system setup and configuration.
 
 ## 📂 Structure
 
 ```
 scripts/
- └── arch/   ← Arch Linux versions
+ └── arch/   ← Arch Linux scripts
 ```
-
 
 ---
 
 ## 🧩 Usage
 
-1. **Make sure scripts are executable** (already done here):
+1. **Make sure scripts are executable**:
    ```bash
    chmod +x *.sh
    ```
 
-2. **Run a script** as root or with `sudo`:
-   ```bash
-   ```
-   or on Arch:
+2. **Run a script** with `sudo`:
    ```bash
    sudo ./install_pihole_arch.sh
    ```
-
-3. **pkg_install wrapper**
-   - Automatically detects package manager (`pacman`, `apt`, `apk`).
-   - Non-interactive install (`--noconfirm`, `-y`).
-   - Can be extended with new mappings if needed.
 
 ---
 
 ## ⚙️ Script Overview
 
-| Script | Description | Notes |
-|:--------|:-------------|:------|
-| `install_deluge_*` | Installs Deluge torrent client with Docker support. | RPi uses `docker.io`; Arch uses `docker`. |
-| `install_pihole_*` | Installs Pi-hole network ad blocker. | Works natively on RPi. |
-| `install_tools_and_zsh_plugins_*` | Installs Zsh, Git, and common CLI tools. | Compatible on both systems. |
-| `omarchy-kitty-font-setup_*` | Installs Kitty terminal and Nerd Fonts. | For Omarchy only. |
-| `run-omarchy-cleaner_*` | Cleans up temporary files. | For Omarchy only. |
-| `setup_deluge_vpn_*` | Configures Deluge + VPN in Docker. | RPi version skips lazydocker. |
-| `setup_samba_*` | Installs and configures Samba shares. | Package names differ. |
-| `setup_usb_and_folder_*` | Mounts and configures USB storage. | Universal. |
-| `staticIP-rpi_*` | Configures static IP. | Universal. |
-| `docker_install_tools_*` | installs Docker,Docker compose,lazydocker | Universal. |
-| `alias_pi.zsh` | aliases for the pi | rpi only. |
+| Script | Description |
+|:-------|:------------|
+| `install_deluge_arch_arch.sh` | Installs Deluge torrent client with Docker support |
+| `install_docker_tools_arch.sh` | Installs Docker, Docker Compose, and Lazydocker |
+| `install_pihole_arch.sh` | Installs Pi-hole network ad blocker |
+| `install_tools_and_zsh_plugins_arch.sh` | Installs Zsh, Git, and common CLI tools |
+| `omarchy-kitty-font-setup_arch.sh` | Installs Kitty terminal and Nerd Fonts |
+| `run-omarchy-cleaner_arch.sh` | Cleans up bloat software |
+| `setup_deluge_vpn_arch.sh` | Configures Deluge + VPN in Docker |
+| `setup_samba_arch.sh` | Installs and configures Samba shares |
+| `setup_usb_and_folder_arch.sh` | Mounts and configures USB storage |
 
 ---
 
 ## ⚠️ Notes
 
-- Raspberry Pi OS lacks `lazydocker` and some Arch packages. Those were skipped safely.
-- Font packages differ; Debian uses `fonts-*` prefix.
-- All scripts assume `sudo` is available.
-- To extend for new systems, modify `pkg_install` in the prolog.
+- All scripts assume `sudo` is available
+- Scripts use `pacman` for package management
 
 ---
 
