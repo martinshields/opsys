@@ -6,7 +6,6 @@ These scripts have been split into two sets for convenience and portability.
 
 ```
 scripts/
- ├── rpi/    ← Raspberry Pi OS (Debian-based) versions
  └── arch/   ← Arch Linux versions
 ```
 
@@ -22,7 +21,6 @@ scripts/
 
 2. **Run a script** as root or with `sudo`:
    ```bash
-   sudo ./install_pihole_rpi.sh
    ```
    or on Arch:
    ```bash
