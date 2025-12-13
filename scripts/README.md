@@ -20,7 +20,7 @@ scripts/
 
 2. **Run a script** with `sudo`:
    ```bash
-   sudo ./install_pihole_arch.sh
+   sudo ./install_pihole.sh
    ```
 
 ---
@@ -29,15 +29,15 @@ scripts/
 
 | Script | Description |
 |:-------|:------------|
-| `install_deluge_arch_arch.sh` | Installs Deluge torrent client with Docker support |
-| `install_docker_tools_arch.sh` | Installs Docker, Docker Compose, and Lazydocker |
-| `install_pihole_arch.sh` | Installs Pi-hole network ad blocker |
-| `install_tools_and_zsh_plugins_arch.sh` | Installs Zsh, Git, and common CLI tools |
-| `omarchy-kitty-font-setup_arch.sh` | Installs Kitty terminal and Nerd Fonts |
-| `run-omarchy-cleaner_arch.sh` | Cleans up bloat software |
-| `setup_deluge_vpn_arch.sh` | Configures Deluge + VPN in Docker |
-| `setup_samba_arch.sh` | Installs and configures Samba shares |
-| `setup_usb_and_folder_arch.sh` | Mounts and configures USB storage |
+| `install_deluge.sh` | Installs Deluge torrent client with Docker support |
+| `install_docker_tools.sh` | Installs Docker, Docker Compose, and Lazydocker |
+| `install_pihole.sh` | Installs Pi-hole network ad blocker |
+| `install_tools_and_zsh_plugins.sh` | Installs Zsh, Git, and common CLI tools |
+| `omarchy-kitty-font-setup.sh` | Installs Kitty terminal and Nerd Fonts |
+| `run-omarchy-cleaner.sh` | Cleans up bloat software |
+| `setup_deluge_vpn.sh` | Configures Deluge + VPN in Docker |
+| `setup_samba.sh` | Installs and configures Samba shares |
+| `setup_usb_and_folder.sh` | Mounts and configures USB storage |
 
 ---
 

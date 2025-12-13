@@ -29,14 +29,14 @@ git clone https://github.com/martinshields/opsys.git
 
 Scripts are located in `scripts/arch/`:
 
-- `run-omarchy-cleaner_arch.sh` - Remove bloat software
-- `install_docker_tools_arch.sh` - Install Docker and Lazydocker
-- `install_deluge_arch_arch.sh` - Set up Deluge torrent client
-- `setup_deluge_vpn_arch.sh` - Set up Deluge with VPN
-- `install_pihole_arch.sh` - Install Pi-hole
-- `setup_samba_arch.sh` - Configure Samba file sharing
-- `install_tools_and_zsh_plugins_arch.sh` - Install tools and ZSH plugins
-- `omarchy-kitty-font-setup_arch.sh` - Configure Kitty terminal fonts
+- `run-omarchy-cleaner.sh` - Remove bloat software
+- `install_docker_tools.sh` - Install Docker and Lazydocker
+- `install_deluge.sh` - Set up Deluge torrent client
+- `setup_deluge_vpn.sh` - Set up Deluge with VPN
+- `install_pihole.sh` - Install Pi-hole
+- `setup_samba.sh` - Configure Samba file sharing
+- `install_tools_and_zsh_plugins.sh` - Install tools and ZSH plugins
+- `omarchy-kitty-font-setup.sh` - Configure Kitty terminal fonts
 
 ## 🖥️ VirtualBox Monitor Setting
 
