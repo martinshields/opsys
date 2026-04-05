@@ -98,19 +98,40 @@ if [[ -d "$NVIM_CONFIG_DIR" ]]; then
     }
 fi
 
-# Clone dotfiles with yadm
-log "Cloning dotfiles (overwriting existing files)..."
+# Clone dotfiles with yadm (no checkout yet so we can back up first)
+log "Cloning dotfiles..."
+BACKUP_DIR="$HOME/dotfiles-backup-$(date +%F-%H%M%S)"
 if yadm status >/dev/null 2>&1; then
     log "Warning: yadm repository already initialized. Forcing overwrite."
-    yadm clone -f "$REPO_URL" || {
+    yadm clone -f --no-checkout "$REPO_URL" || {
         log "Error: Failed to clone dotfiles from $REPO_URL."
         exit 1
     }
 else
-    yadm clone -f "$REPO_URL" || {
+    yadm clone --no-checkout "$REPO_URL" || {
         log "Error: Failed to clone dotfiles from $REPO_URL."
         exit 1
     }
+fi
+
+# Back up any existing files that yadm would overwrite
+log "Backing up existing dotfiles to $BACKUP_DIR..."
+mkdir -p "$BACKUP_DIR"
+backed_up=0
+while IFS= read -r f; do
+    src="$HOME/$f"
+    if [[ -f "$src" || -L "$src" ]]; then
+        dest="$BACKUP_DIR/$f"
+        mkdir -p "$(dirname "$dest")"
+        mv "$src" "$dest"
+        ((backed_up++))
+    fi
+done < <(yadm list -a)
+if [[ $backed_up -gt 0 ]]; then
+    log "Backed up $backed_up file(s) to $BACKUP_DIR"
+else
+    log "No existing dotfiles to back up."
+    rmdir "$BACKUP_DIR" 2>/dev/null
 fi
 
 # Checkout dotfiles to apply them
