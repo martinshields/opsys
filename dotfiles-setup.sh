@@ -124,7 +124,7 @@ while IFS= read -r f; do
         dest="$BACKUP_DIR/$f"
         mkdir -p "$(dirname "$dest")"
         mv "$src" "$dest"
-        ((backed_up++))
+        backed_up=$((backed_up + 1))
     fi
 done < <(yadm list -a)
 if [[ $backed_up -gt 0 ]]; then
