@@ -86,8 +86,8 @@ git clone https://github.com/zsh-users/zsh-completions "${OH_MY_ZSH_DIR}/custom/
 
 # Remove existing Neovim configuration
 if [[ -d "$NVIM_CONFIG_DIR" ]]; then
-    read -p "This will remove $NVIM_CONFIG_DIR. Continue? (y/N) " confirm
-    if [[ "$confirm" != "y" && "$confirm" != "Y" ]]; then
+    read -p "This will remove $NVIM_CONFIG_DIR. Continue? (Y/n) [y recommended] " confirm
+    if [[ "$confirm" == "n" || "$confirm" == "N" ]]; then
         log "Aborted."
         exit 1
     fi

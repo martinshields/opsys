@@ -51,8 +51,12 @@ fi
 
 # Update the system first
 echo "Updating system..."
-sudo pacman -Syu 
+sudo pacman -Syu
 # sudo pacman -Syu --noconfirm --ignore uwsm
+
+# Remove omarchy pre-installed packages
+echo "Removing omarchy pre-installs..."
+omarchy-remove-preinstalls
 
 # Install yay AUR helper if not present
 if ! command -v yay &> /dev/null; then
