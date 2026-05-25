@@ -1,51 +1,33 @@
-# Opsys Scripts — Arch Linux 🛠️
+# Opsys Scripts — Arch Linux
 
-Scripts for Arch Linux (Omarchy) system setup and configuration.
+Additional scripts for system setup and configuration.
 
-## 📂 Structure
+## Structure
 
 ```
 scripts/
- └── arch/   ← Arch Linux scripts
+ └── arch/   ← Arch Linux / Raspberry Pi scripts
 ```
 
----
+## Usage
 
-## 🧩 Usage
+Make scripts executable before running:
 
-1. **Make sure scripts are executable**:
-   ```bash
-   chmod +x *.sh
-   ```
+```bash
+chmod +x scripts/arch/*.sh
+```
 
-2. **Run a script** with `sudo`:
-   ```bash
-   sudo ./install_pihole.sh
-   ```
-
----
-
-## ⚙️ Script Overview
+## Script Overview
 
 | Script | Description |
-|:-------|:------------|
-| `install_deluge.sh` | Installs Deluge torrent client with Docker support |
-| `install_docker_tools.sh` | Installs Docker, Docker Compose, and Lazydocker |
-| `install_pihole.sh` | Installs Pi-hole network ad blocker |
-| `install_tools_and_zsh_plugins.sh` | Installs Zsh, Git, and common CLI tools |
-| `omarchy-kitty-font-setup.sh` | Installs Kitty terminal and Nerd Fonts |
-| `run-omarchy-cleaner.sh` | Cleans up bloat software |
-| `setup_deluge_vpn.sh` | Configures Deluge + VPN in Docker |
-| `setup_samba.sh` | Installs and configures Samba shares |
-| `setup_usb_and_folder.sh` | Mounts and configures USB storage |
+|--------|-------------|
+| `run-omarchy-cleaner.sh` | Downloads and runs [omarchy-cleaner](https://github.com/maxart/omarchy-cleaner) to remove bloat software |
+| `install_tools_and_zsh_plugins.sh` | Installs CLI tools (htop, lazygit, bat, neovim, etc.) and oh-my-zsh with plugins — targets apt-based systems (Raspberry Pi OS) |
+| `omarchy-kitty-font-setup.sh` | Installs Kitty terminal and CodeNewRoman Nerd Font, then sets it as the system font via `omarchy-font-set` |
+| `staticIP.sh` | Configures a static IP address on a Raspberry Pi via `dhcpcd.conf` |
 
----
+## Notes
 
-## ⚠️ Notes
-
-- All scripts assume `sudo` is available
-- Scripts use `pacman` for package management
-
----
-
-© Martin Shields — Opsys Project
+- `install_tools_and_zsh_plugins.sh` and `staticIP.sh` target Raspberry Pi OS (apt/dhcpcd) — not Arch
+- `run-omarchy-cleaner.sh` and `omarchy-kitty-font-setup.sh` are for Omarchy (Arch-based)
+- All scripts include a cross-distro compatibility prolog for `pacman`, `apt`, and `apk`
