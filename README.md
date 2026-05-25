@@ -40,6 +40,21 @@ To install only development tools (skip desktop/media/fonts):
 | `dotfiles-setup.sh` | Installs oh-my-zsh, zsh plugins, and clones dotfiles via yadm |
 | `utils.sh` | Helper functions for package installation |
 
+### dotfiles-setup.sh
+
+Called automatically at the end of a full `run.sh` install. It:
+
+1. Downloads vifm color theme (`palenight.vifm`) and creates `~/adata/temp`
+2. Installs [oh-my-zsh](https://ohmyz.sh/) (unattended, no shell change yet)
+3. Clones `zsh-autosuggestions` and `zsh-completions` plugins into oh-my-zsh custom plugins
+4. Backs up any existing Neovim config (`~/.config/nvim`) before overwriting
+5. Clones dotfiles from [martinshields/dotfiles](https://github.com/martinshields/dotfiles) via `yadm`, backing up any conflicting files to a timestamped directory
+6. Copies `aliasmartin.zsh` and `functions.zsh` into `~/.oh-my-zsh/custom/`
+7. Changes the default shell to Zsh (`chsh -s /usr/bin/zsh`)
+8. Reboots after a 10-second countdown
+
+> **Note:** The script will prompt before removing an existing oh-my-zsh or Neovim config directory.
+
 ## Scripts (`scripts/arch/`)
 
 | Script | Description |
