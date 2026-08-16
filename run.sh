@@ -138,7 +138,11 @@ else
  # Install yadm dotfiles
   echo "Installing dotfiles-setup"
   . dotfiles-setup.sh
-  
+
+  # Set Brave as the default browser
+  echo "Setting Brave as the default browser..."
+  omarchy-default-browser brave
+
 fi
 
 echo "Setup complete! You may want to reboot your system."
