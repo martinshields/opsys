@@ -1,11 +1,10 @@
 #!/bin/bash
 #Make sure you install Omarchy ISO
 #and your ~/.ssh folder
- 
 
 # Print the logo
 print_logo() {
-    cat << "EOF"
+  cat <<"EOF"
  ██████  ██████  ███████ ██    ██ ███████ 
 ██    ██ ██   ██ ██       ██  ██  ██      
 ██    ██ ██████  ███████   ████   ███████ 
@@ -20,8 +19,14 @@ EOF
 DEV_ONLY=false
 while [[ "$#" -gt 0 ]]; do
   case $1 in
-    --dev-only) DEV_ONLY=true; shift ;;
-    *) echo "Unknown parameter: $1"; exit 1 ;;
+  --dev-only)
+    DEV_ONLY=true
+    shift
+    ;;
+  *)
+    echo "Unknown parameter: $1"
+    exit 1
+    ;;
   esac
 done
 
@@ -51,7 +56,7 @@ fi
 
 # Update the system first
 echo "Updating system..."
-sudo pacman -Syu
+omarchy update
 # sudo pacman -Syu --noconfirm --ignore uwsm
 
 # Remove omarchy pre-installed packages
@@ -59,7 +64,7 @@ echo "Removing omarchy pre-installs..."
 omarchy-remove-preinstalls
 
 # Install yay AUR helper if not present
-if ! command -v yay &> /dev/null; then
+if ! command -v yay &>/dev/null; then
   echo "Installing yay AUR helper..."
   sudo pacman -S --needed git base-devel --noconfirm
   if [[ ! -d "yay" ]]; then
@@ -85,36 +90,36 @@ if [[ "$DEV_ONLY" == true ]]; then
   # Only install essential development packages
   echo "Installing system utilities..."
   install_packages "${SYSTEM_UTILS[@]}"
-  
+
   echo "Installing development tools..."
   install_packages "${DEV_TOOLS[@]}"
 else
   # Install all packages
   echo "Installing system utilities..."
   install_packages "${SYSTEM_UTILS[@]}"
-  
+
   echo "Installing development tools..."
   install_packages "${DEV_TOOLS[@]}"
-  
+
   echo "Installing system maintenance tools..."
   install_packages "${MAINTENANCE[@]}"
-  
+
   echo "Installing desktop environment..."
   install_packages "${DESKTOP[@]}"
-  
+
   echo "Installing desktop environment..."
   install_packages "${OFFICE[@]}"
-  
+
   echo "Installing media packages..."
   install_packages "${MEDIA[@]}"
-  
+
   echo "Installing fonts..."
   install_packages "${FONTS[@]}"
-  
+
   # Enable services
   echo "Configuring services..."
   for service in "${SERVICES[@]}"; do
-    if ! systemctl is-enabled "$service" &> /dev/null; then
+    if ! systemctl is-enabled "$service" &>/dev/null; then
       echo "Enabling $service..."
       sudo systemctl enable "$service"
     else
@@ -122,20 +127,20 @@ else
     fi
   done
 
-# # Install oh-my-zsh
-#
-# echo "Installing oh-my-zsh"
-# RUNZSH=no CHSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
-#
-# # Set ZSH_CUSTOM if it's not already set
-# ZSH_CUSTOM="${ZSH_CUSTOM:-${ZSH:-$HOME/.oh-my-zsh}/custom}"
-#
-# # Install zsh plugins
-# echo "Installing zsh plugins"
-# git clone https://github.com/zsh-users/zsh-autosuggestions "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
-# git clone https://github.com/zsh-users/zsh-completions "$ZSH_CUSTOM/plugins/zsh-completions"
+  # # Install oh-my-zsh
+  #
+  # echo "Installing oh-my-zsh"
+  # RUNZSH=no CHSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
+  #
+  # # Set ZSH_CUSTOM if it's not already set
+  # ZSH_CUSTOM="${ZSH_CUSTOM:-${ZSH:-$HOME/.oh-my-zsh}/custom}"
+  #
+  # # Install zsh plugins
+  # echo "Installing zsh plugins"
+  # git clone https://github.com/zsh-users/zsh-autosuggestions "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
+  # git clone https://github.com/zsh-users/zsh-completions "$ZSH_CUSTOM/plugins/zsh-completions"
 
- # Install yadm dotfiles
+  # Install yadm dotfiles
   echo "Installing dotfiles-setup"
   . dotfiles-setup.sh
 
