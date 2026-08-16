@@ -144,9 +144,10 @@ else
   echo "Installing dotfiles-setup"
   . dotfiles-setup.sh
 
-  # Set Brave as the default browser
-  echo "Setting Brave as the default browser..."
-  omarchy-default-browser brave
+  # Set Brave as the default browser and terminal.
+  # echo "Setting Brave as the default browser..and terminal to kitty."
+  # omarchy-default-browser brave
+  # omarchy-default-terminal kitty
 
 fi
 
