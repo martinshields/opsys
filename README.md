@@ -36,7 +36,7 @@ To install only development tools (skip desktop/media/fonts):
 | File | Description |
 |------|-------------|
 | `run.sh` | Main setup script — installs packages, enables services, runs dotfiles setup |
-| `packages.conf` | Package lists by category (system utils, dev tools, desktop, media, fonts) |
+| `packages.conf` | Package lists by category (system utils, dev tools, maintenance, desktop, media, fonts) and services to enable |
 | `dotfiles-setup.sh` | Installs oh-my-zsh, zsh plugins, clones dotfiles via yadm, and sets default browser/terminal/font |
 | `utils.sh` | Helper functions for package installation |
 
