@@ -168,11 +168,11 @@ chsh -s /usr/bin/zsh || {
 }
 #
 
-# Set Brave as the default browser and terminal.
+# Set Brave as the default browser,terminal and Font.
 echo "Setting Brave as the default browser..and terminal to kitty."
 omarchy-default-browser brave
 omarchy-default-terminal kitty
-
+omarchy-font-set "CodeNewRoman Nerd Font"
 #
 log "Setup completed successfully."
 
