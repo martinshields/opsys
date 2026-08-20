@@ -37,7 +37,7 @@ To install only development tools (skip desktop/media/fonts):
 |------|-------------|
 | `run.sh` | Main setup script — installs packages, enables services, runs dotfiles setup |
 | `packages.conf` | Package lists by category (system utils, dev tools, desktop, media, fonts) |
-| `dotfiles-setup.sh` | Installs oh-my-zsh, zsh plugins, and clones dotfiles via yadm |
+| `dotfiles-setup.sh` | Installs oh-my-zsh, zsh plugins, clones dotfiles via yadm, and sets default browser/terminal/font |
 | `utils.sh` | Helper functions for package installation |
 
 ### dotfiles-setup.sh
@@ -51,7 +51,8 @@ Called automatically at the end of a full `run.sh` install. It:
 5. Clones dotfiles from [martinshields/dotfiles](https://github.com/martinshields/dotfiles) via `yadm`, backing up any conflicting files to a timestamped directory
 6. Copies `aliasmartin.zsh` and `functions.zsh` into `~/.oh-my-zsh/custom/`
 7. Changes the default shell to Zsh (`chsh -s /usr/bin/zsh`)
-8. Reboots after a 10-second countdown
+8. Sets Brave as the default browser, Kitty as the default terminal, and "CodeNewRoman Nerd Font" as the system font
+9. Reboots after a 10-second countdown
 
 > **Note:** The script will prompt before removing an existing oh-my-zsh or Neovim config directory.
 
@@ -61,5 +62,4 @@ Called automatically at the end of a full `run.sh` install. It:
 |--------|-------------|
 | `run-omarchy-cleaner.sh` | Remove bloat software |
 | `install_tools_and_zsh_plugins.sh` | Install tools and ZSH plugins |
-| `omarchy-kitty-font-setup.sh` | Configure Kitty terminal fonts |
 | `staticIP.sh` | Set a static IP address |
